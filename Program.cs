@@ -8,29 +8,29 @@ namespace Lab7
     {
         static void Main(string[] args)
         {
-            StudentCollection FirstCollect = new StudentCollection();
-            StudentCollection SecondCollect = new StudentCollection();
-            FirstCollect.CollectionName = "Collection numero 1";
-            SecondCollect.CollectionName = "collection numero 2";
+            StudentCollection FirstCollect = new StudentCollection(); //Liste d'eleve Numero 1
+            StudentCollection SecondCollect = new StudentCollection(); //Liste d'eleve Numero 2
+            FirstCollect.CollectionName = "Collection numero 1"; //ChangeToRussian
+            SecondCollect.CollectionName = "collection numero 2";//ChangeToRussian
             StudentCollection[] FirstArray = { FirstCollect };
             StudentCollection[] SecondArray = { FirstCollect, SecondCollect };
-            Journal FirstJournal = new Journal(FirstArray);
-            Journal SecondJournal = new Journal(SecondArray);
+            Journal FirstJournal = new Journal(FirstArray); //Journal Numero 1
+            Journal SecondJournal = new Journal(SecondArray); //Journal Numero 2
             Console.WriteLine("-------------------------------------------Etape1");
-            FirstCollect.AddDefaults();
+            FirstCollect.AddDefaults(); //premiere modification sur une liste
             SecondCollect.AddDefaults();
-            Student[] StudentToAdd = { new Student("Developpeur c#", "8977", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur c++", "8077", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur c", "18977", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur Javascript", "89770", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)) };
+            Student[] StudentToAdd = { new Student("Developpeur c#", 8977, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur c++", 8077, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur c", 18977, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)), new Student("Developpeur Javascript", 89770, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)) }; //ChangeToRussian
             FirstCollect.AddStudent(StudentToAdd);
             FirstCollect.Remove(1);
             FirstCollect.Remove(50);
-            FirstCollect[0] = new Student("Developpeur Python", "2145", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5));
-            SecondCollect.AddStudent(new Student[] { new Student("Developpeur Ruby", "77544", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)) });
-            Console.WriteLine("--------------------------------------------Etape2");
+            SecondCollect[0] = new Student("Developpeur Python", 2145, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)); //La reference A ete changer //ChangeToRussian
+            SecondCollect.AddStudent(new Student[] { new Student("Developpeur Ruby", 77544, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)) }); //ChangeToRussian
+            Console.WriteLine("--------------------------------------------Etape2"); //ChangeToRussian
             Console.WriteLine(FirstJournal.ToString());
             Console.WriteLine(SecondJournal.ToString());
-            Console.WriteLine("-----------------------------------Etape 3");
-            Console.WriteLine("Verifions le resume" + FirstCollect.ToString());
-            Console.WriteLine("Verifions le court Resume" + FirstCollect.ToShortString());
+            Console.WriteLine("-----------------------------------Etape 3"); //ChangeToRussian
+            Console.WriteLine("Verifions le resume" + FirstCollect.ToString()); //ChangeToRussian
+            Console.WriteLine("Verifions le court Resume" + FirstCollect.ToShortString()); //ChangeToRussian
         }
     }
 }
@@ -51,7 +51,7 @@ public class GetVariables
 /////////////////////////////////////////////////// Student
 public class Student
 {
-    public Student(string EducationTypeInit, string InformationGroupInit, ArrayList offsetListInit, ArrayList ExamenListInit)
+    public Student(string EducationTypeInit, int InformationGroupInit, ArrayList offsetListInit, ArrayList ExamenListInit)
     {
         EducationType = EducationTypeInit;
         InformationGroup = InformationGroupInit;
@@ -61,19 +61,19 @@ public class Student
 
     public string getInformationStudent()
     {
-        return " Education Information: " + EducationType + "| Groupe Information: " + InformationGroup;
+        return " Education Information: " + EducationType + "| Groupe Information: " + InformationGroup.ToString(); //ChangeToRussian
     }
 
     public string getExamAndOffsetList()
     {
-        string Resume = "| Examen List: ";
+        string Resume = "| Examen List: "; //ChangeToRussian
 
         foreach (int item in ExamenList)
         {
             Resume += item.ToString() + " ";
         }
 
-        Resume += "| Offset List: ";
+        Resume += "| Offset List: "; //ChangeToRussian
 
         foreach (int item in offsetList)
         {
@@ -94,14 +94,19 @@ public class Student
         return average.ToString();
     }
 
+    public string getInformationGroup()
+    {
+        return InformationGroup.ToString();
+    }
+
     public string getCount()
     {
         string countOffset = offsetList.Count.ToString();
         string coutExam = ExamenList.Count.ToString();
-        return "| Number exam: " + coutExam + "| Number offset: " + countOffset;
+        return "| Number exam: " + coutExam + "| Number offset: " + countOffset; //ChangeToRussian
     }
     private string EducationType;
-    private string InformationGroup;
+    private int InformationGroup;
     private ArrayList offsetList;
     private ArrayList ExamenList;
 }
@@ -136,21 +141,20 @@ public class StudentCollection
         set
         {
             StudentList[index] = value;
-            if (StudentReferenceChanged != null)
+            if (StudentReferenceChanged != null) // Declenchemant de l'evenement StudentReferenceChanged
             {
-                string Resume = StudentList[index].getInformationStudent();
-                StudentReferenceChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "La reference d'un eleve a ete changer", StudentWhoChange = StudentList[index] });
+                StudentReferenceChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "La reference d'un eleve a ete changer", StudentWhoChange = StudentList[index] }); //ChangeToRussian
             }
         }
     }
 
     public void AddDefaults()
     {
-        Student StudentToAdd = new Student("Programmeur", "102201", GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5));
+        Student StudentToAdd = new Student("Programmeur", 102201, GetVariables.getIntArrayList(5), GetVariables.getIntArrayList(5)); //ChangeToRussian
         StudentList.Add(StudentToAdd);
         if (StudentCountChanged != null)
         {
-            StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un nouveau eleve ajouter", StudentWhoChange = StudentToAdd });
+            StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un nouveau eleve ajouter", StudentWhoChange = StudentToAdd }); //ChangeToRussian
         }
     }
 
@@ -159,10 +163,9 @@ public class StudentCollection
         for (int i = 0; i < StudentToAdd.Length; i++)
         {
             StudentList.Add(StudentToAdd[i]);
-            StudentToAdd[i].getAverageNote();
             if (StudentCountChanged != null)
             {
-                StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un nouveau eleve ajouter", StudentWhoChange = StudentToAdd[i] });
+                StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un nouveau eleve ajouter", StudentWhoChange = StudentToAdd[i] }); //ChangeToRussian
             }
         }
     }
@@ -171,18 +174,18 @@ public class StudentCollection
     {
         if (J < 0 || StudentList.Count < J)
         {
-            Console.WriteLine("La collection n'existe pas");
+            Console.WriteLine("La collection n'existe pas"); //ChangeToRussian
             return false;
         }
         else if (StudentList.Remove(StudentList[J]) && StudentCountChanged != null)
         {
-            Console.WriteLine("La collection a bien ete retire");
-            StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un eleve supprimer", StudentWhoChange = StudentList[J] });
+            Console.WriteLine("La collection a bien ete retire"); //ChangeToRussian
+            StudentCountChanged(this, new StudentListHandlerEventArgs { CollectionName = this.CollectionName, ChangementType = "Un eleve supprimer", StudentWhoChange = StudentList[J] }); //ChangeToRussian
             return true;
         }
         else
         {
-            Console.WriteLine("La collection n'existe pas");
+            Console.WriteLine("La collection n'existe pas"); //ChangeToRussian
             return false;
         }
     }
@@ -204,7 +207,7 @@ public class StudentCollection
 
         for (int i = 0; i < this.StudentList.Count; i++)
         {
-            Resume += this.StudentList[i].getInformationStudent() + "| Average Note: " + StudentList[i].getAverageNote() + StudentList[i].getCount() + "\n";
+            Resume += this.StudentList[i].getInformationStudent() + "| Average Note: " + StudentList[i].getAverageNote() + StudentList[i].getCount() + "\n"; //ChangeToRussian
         }
 
         return Resume;
@@ -221,7 +224,7 @@ public class JournalEntry
 
     public override string ToString()
     {
-        return "Collection name: " + this.CollectionName + " Changement Type: " + this.ChangementType + " Student Information: " + this.StudentWhoChange + "\n";
+        return "| Collection name: " + this.CollectionName + "| Changement Type: " + this.ChangementType + "| Student Information: " + StudentWhoChange + "\n"; //ChangeToRussian
     }
 }
 
@@ -231,7 +234,6 @@ public class Journal
 
     public Journal(StudentCollection[] CollectionToSubscribe)
     {
-
         for (int i = 0; i < CollectionToSubscribe.Length; i++)
         {
             CollectionToSubscribe[i].StudentCountChanged += StudentCountChangedEventManagement;
@@ -242,12 +244,12 @@ public class Journal
 
     private void StudentCountChangedEventManagement(object sender, StudentListHandlerEventArgs eventReceived)
     {
-        JournalEntryList.Add(new JournalEntry { CollectionName = eventReceived.CollectionName, ChangementType = eventReceived.ChangementType, StudentWhoChange = eventReceived.StudentWhoChange.getInformationStudent() });
+        JournalEntryList.Add(new JournalEntry { CollectionName = eventReceived.CollectionName, ChangementType = eventReceived.ChangementType, StudentWhoChange = eventReceived.StudentWhoChange.getInformationGroup() });
     }
 
     private void StudentReferenceChangedEventManagement(object sender, StudentListHandlerEventArgs eventReceived)
     {
-        JournalEntryList.Add(new JournalEntry { CollectionName = eventReceived.CollectionName, ChangementType = eventReceived.ChangementType, StudentWhoChange = eventReceived.StudentWhoChange.getInformationStudent() });
+        JournalEntryList.Add(new JournalEntry { CollectionName = eventReceived.CollectionName, ChangementType = eventReceived.ChangementType, StudentWhoChange = eventReceived.StudentWhoChange.getInformationGroup() });
     }
 
     public override string ToString()
